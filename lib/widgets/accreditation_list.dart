@@ -71,21 +71,26 @@ class AccreditationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemBuilder: (context, index) {
-          // Recuperar la información de la acreditación actual
-          final currentItem = accreditations[index];
-          return AccreditationItem(
-            store: currentItem['store'],
-            colors: currentItem['colors'],
-            icon: currentItem['icon'],
-            date: currentItem['date'],
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: 10);
-        },
-        itemCount: accreditations.length);
+    // ListView.separated() se utiliza en el contexto de un ListView, que es un widget de desplazamiento lineal que muestra una lista de hijos.
+    // return ListView.separated(
+    // padding: const EdgeInsets.all(16),
+
+    // SliverList.separated() se utiliza en el contexto de un CustomScrollView con slivers.
+    return SliverList.separated(
+      itemBuilder: (context, index) {
+        // Recuperar la información de la acreditación actual
+        final currentItem = accreditations[index];
+        return AccreditationItem(
+          store: currentItem['store'],
+          colors: currentItem['colors'],
+          icon: currentItem['icon'],
+          date: currentItem['date'],
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const SizedBox(height: 10);
+      },
+      itemCount: accreditations.length,
+    );
   }
 }
