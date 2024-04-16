@@ -7,7 +7,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250,
+      //height: 250,
       width: double.infinity,
       decoration: const BoxDecoration(
         // Imagen de Fondo
@@ -63,5 +63,35 @@ class Header extends StatelessWidget {
         ),
       ]),
     );
+  }
+}
+
+// Esta clase es responsable de construir el contenido del encabezado. Definimos las alturas mínima y máxima del encabezado en los métodos minExtent y maxExtent, respectivamente.
+// Además, en el método build, especificamos cómo se debe renderizar el encabezado.
+class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  SliverCustomHeaderDelegate(
+      {required this.minHeight, required this.maxHeight, required this.child});
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return child;
+  }
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(covariant SliverCustomHeaderDelegate oldDelegate) {
+    // Volver a dibujar este widget si alguna de sus propiedades requeridas cambia
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }

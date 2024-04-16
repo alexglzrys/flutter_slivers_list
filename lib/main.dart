@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sliver_list_flutter_app/widgets/accreditation_list.dart';
+import 'package:sliver_list_flutter_app/widgets/header.dart';
 // import 'package:sliver_list_flutter_app/widgets/header.dart';
 //import 'package:sliver_list_flutter_app/widgets/header.dart';
 
@@ -23,11 +24,18 @@ class SliverListApp extends StatelessWidget {
 
           // Los Slivers se utilizan comúnmente dentro de un CustomScrollView para construir interfaces de usuario complejas que requieren diferentes tipos de contenido desplazable en una sola pantalla.
           slivers: [
-            SliverAppBar(
-              title: const Text('Acreditaciones'),
-              backgroundColor: Colors.pink[600],
-              floating: true,
-              centerTitle: true,
+            // ? Un SliverPersistentHeader es un widget que se utiliza para crear encabezados personalizados que permanecen visibles en la parte superior de una lista desplazable, como un CustomScrollView, incluso cuando el contenido de la lista se desplaza.
+            SliverPersistentHeader(
+              // * SliverPersistentHeader requiere de una instancia de SliverPersistentHeaderDelegate, el cual es el encargado de construir el contenido del encabezado. Este requiere información sobre alturas máximas y mínimas, así como el contenido a proyectar
+              delegate: SliverCustomHeaderDelegate(
+                minHeight: 120,
+                maxHeight: 250,
+                child: const Header(),
+              ),
+              // Mostrarse nuevamente en la parte superior cuando se haga scroll hacia arriba
+              // floating: true,
+              // Mantenerse fijo (con la altura mínima) en la parte superior de la pantalla cuando se hace scroll
+              pinned: true,
             ),
             SliverPadding(
               padding: const EdgeInsets.all(16),
